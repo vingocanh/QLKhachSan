@@ -1,0 +1,59 @@
+﻿@model IEnumerable<QLPhongTro.Models.KhachHangModel>
+
+@{
+    ViewBag.Title = "KhachHang";
+}
+
+<h2>Khách Hàng</h2>
+@Html.ValidationSummary(true)
+
+<p>
+    @Html.ActionLink("Thêm Thông Tin Khách Hàng", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ngaySinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoCMT)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoDT)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ten)
+        </td>
+        <td>
+            @(item.ngaySinh.HasValue ? item.ngaySinh.Value.ToString("dd/MM/yyyy") : " ")
+            @*@Html.DisplayFor(modelItem => item.NgaySinh.ToString("dd/MM/yyyy"))*@
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoCMT)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoDT)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.Id }) |
+            @*@Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+
+            @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+              {
+                  Confirm = "Bạn có muốn xóa khách hàng này?",
+                  OnComplete = "$('#row_ " + @item.Id + "').remove()",
+                  HttpMethod = "Delete"
+              })
+        </td>
+    </tr>
+}
+
+</table>

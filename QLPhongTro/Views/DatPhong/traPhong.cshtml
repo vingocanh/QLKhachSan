@@ -1,0 +1,59 @@
+﻿@model QLPhongTro.Models.TraPhongModel
+
+@{
+    ViewBag.Title = "traPhong";
+}
+
+<h2>Trả Phòng</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.DatPhong.Id,  htmlAttributes: new { @Value = ViewBag.idD })
+        @Html.HiddenFor(model => model.DatPhong.Phong.Id, htmlAttributes: new { @Value = ViewBag.idP })
+        @Html.HiddenFor(model => model.NhanVien.Id, htmlAttributes: new { @Value = ViewBag.idHA } )
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatPhong.Phong.TenPhong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatPhong.Phong.TenPhong, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.tenPhong } })
+                @Html.ValidationMessageFor(model => model.DatPhong.Phong.TenPhong, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.DatPhong.NgayDat, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DatPhong.NgayDat, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ngayDat } })
+                @Html.ValidationMessageFor(model => model.DatPhong.NgayDat, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.NgayTra, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NgayTra, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.ngayTra }  })
+                @Html.ValidationMessageFor(model => model.NgayTra, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SoTien, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SoTien, new { htmlAttributes = new { @class = "form-control", @Value = ViewBag.tien } })
+                @Html.ValidationMessageFor(model => model.SoTien, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

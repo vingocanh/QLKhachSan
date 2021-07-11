@@ -1,0 +1,50 @@
+﻿@model IEnumerable<QLPhongTro.Models.PhongModel>
+<h2>Phòng</h2>
+<p>
+    @Html.ActionLink("Thêm Phòng Mới", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenPhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TrangThai)
+        </th>
+     
+        <th>
+           Tên Phòng
+        </th>
+        <th>
+           Giá
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model){
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TrangThai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiPhong.TenLoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LoaiPhong.GiaTien)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }) |
+            @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+         {
+             Confirm = "Bạn có muốn xóa phòng này?",
+             OnComplete = "$('#row_ " + @item.Id + "').remove()",
+             HttpMethod = "Delete"
+         })
+        </td>
+    </tr>
+}
+
+</table>
